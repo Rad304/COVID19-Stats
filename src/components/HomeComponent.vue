@@ -43,23 +43,30 @@
           </b-card>
         </b-col>
       </b-row>
+
+      <LineChart :chartData="chartdata" :country="selected"/>
     </b-container>
   </div>
 </template>
 
 <script>
+import LineChart from './LineChart';
 
 export default {
   name: 'HomeComponent',
+  components: {
+    LineChart
+  },
   props: ['msg'],
   data() {
     return {
       options: [],
       data: null,
-      selected: null,
+      selected: "Morocco",
       confirmed: 0,
       deaths: 0,
       recovered: 0,
+      chartdata: {}
     }
   },
   methods: {
@@ -67,10 +74,28 @@ export default {
         return this.options.sort((a, b) => a > b );
     },
     getStats(){
+        this.chartdata = {};
         var countryStats = this.data[this.selected];
         this.confirmed =countryStats[countryStats.length-1].confirmed;
         this.deaths =countryStats[countryStats.length-1].deaths;
         this.recovered =countryStats[countryStats.length-1].recovered;
+        
+        var datasets = [];
+        var dataset = {};
+        var labels = [];
+        countryStats.forEach((el)=>{
+          if(!dataset.data)
+            dataset.data = [];
+          labels.push(el.date)
+          dataset.data.push(el.confirmed);
+        });
+        dataset.label = "Confirmed";
+        dataset.borderColor = "#3e95cd";
+        dataset.fill = true;
+
+        this.chartdata.labels = labels;
+        datasets.push(dataset);
+        this.chartdata.datasets = datasets;
     }
   },
   mounted () {
