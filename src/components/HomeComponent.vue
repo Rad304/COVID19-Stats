@@ -7,7 +7,7 @@
         <b-form-select
           id="inline-form-custom-select-pref"
           class="mb-2 mr-sm-2 mb-sm-0"
-          :options="options"
+          :options="selectoptions"
           v-model="selected"
         ></b-form-select>
         <b-button variant="primary" @click="getStats($event)">
@@ -44,7 +44,7 @@
         </b-col>
       </b-row>
 
-      <LineChart :chartData="chartdata" :country="selected"/>
+      <LineChart :chartData="chartdata" :options="options"/>
     </b-container>
   </div>
 </template>
@@ -60,21 +60,23 @@ export default {
   props: ['msg'],
   data() {
     return {
-      options: [],
+      selectoptions: [],
       data: null,
       selected: "Morocco",
       confirmed: 0,
       deaths: 0,
       recovered: 0,
-      chartdata: {}
+      chartdata: {},
+      options: {}
     }
   },
   methods: {
     sortArray(){
-        return this.options.sort((a, b) => a > b );
+        return this.selectoptions.sort((a, b) => a > b );
     },
     getStats(){
         this.chartdata = {};
+        this.options = {};
         var countryStats = this.data[this.selected];
         this.confirmed =countryStats[countryStats.length-1].confirmed;
         this.deaths =countryStats[countryStats.length-1].deaths;
@@ -96,6 +98,13 @@ export default {
         this.chartdata.labels = labels;
         datasets.push(dataset);
         this.chartdata.datasets = datasets;
+
+        this.options = {
+            title: {
+            display: true,
+            text: 'Coronavirus statistics in ' + this.selected
+            },
+        }
     }
   },
   mounted () {
@@ -104,7 +113,7 @@ export default {
       .then(response => {
         this.data = response.data
         Object.keys(response.data).forEach((key)=>{
-          this.options.push(key);
+          this.selectoptions.push(key);
         })
       })
       .catch(error => {

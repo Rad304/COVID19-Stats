@@ -6,16 +6,14 @@ export default {
   name: 'LineChart',
   extends: Line,
   mixins: [reactiveProp],
-  props: ["country"],
-  data(){
-      return {     
-        options: {
-            title: {
-            display: true,
-            text: 'Coronavirus statistics in ' + this.country
-            },
-        }
-      } 
+  props: ["options"],
+  watch: {
+    'options': {
+      handler(newOption, oldOption) {
+        this.renderChart(this.chartData, this.options)
+      },
+      deep: true
+    }
   },
   mounted () {
     this.renderChart(this.chartData, this.options)
