@@ -9,10 +9,8 @@
           class="mb-2 mr-sm-2 mb-sm-0"
           :options="selectoptions"
           v-model="selected"
+          @change="changeCountry"
         ></b-form-select>
-        <b-button variant="primary" @click="getStats($event)">
-          Get Stats
-        </b-button>
       </b-form>
       <b-row class="mt-5">
         <b-col md="4" class="mt-2">
@@ -37,7 +35,7 @@
           <b-card
           >
             <b-card-body>
-              <b-card-title>😷<br>Recovered:</b-card-title>
+              <b-card-title>🕺<br>Recovered:</b-card-title>
               <b-card-sub-title class="mb-2">{{ recovered }}</b-card-sub-title>
             </b-card-body>
           </b-card>
@@ -105,6 +103,9 @@ export default {
             text: 'Coronavirus statistics in ' + this.selected
             },
         }
+    },
+    changeCountry(){
+      this.getStats()
     }
   },
   mounted () {
@@ -121,6 +122,7 @@ export default {
       })
       .finally(()=>{
         this.sortArray()
+        this.getStats()
       });
   }
 }
