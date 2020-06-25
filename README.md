@@ -1,4 +1,4 @@
-# covid-19-stats
+# COVID 19 Stats
 
 ## Project setup
 ```
@@ -27,3 +27,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Demo
+![](demo.gif)
