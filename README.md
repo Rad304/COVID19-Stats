@@ -2,7 +2,7 @@
 
 A Single Page Application (SPA) made using Vue.js that shows the latest COVID-19 statistics of a country of choice in real-time. 
 
-You can a find a demo [here](https://vuejs-covid19-stats.herokuapp.com/)
+You can a find a demo [here](https://vuejs-covid19-stats.herokuapp.com/){:target="_blank"}.
 
 ### GIF Demo
 ![](demo.gif)
