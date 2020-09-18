@@ -1,5 +1,7 @@
 # COVID 19 Stats
 
+A Single Page Application (SPA) made using Vue.js that shows the latest COVID-19 statistics of a country of choice in real-time. 
+
 ## Project setup
 ```
 npm install
